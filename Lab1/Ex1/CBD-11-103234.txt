@@ -1,0 +1,66 @@
+PING
+help
+ping
+dbsize
+save
+bgsave
+timeout 4000
+timeout 0
+save 900 1
+config get appendonly
+config get port
+config set appendonly yes
+config set appendonly 0
+monitor
+ping
+BGREWRITEAOF
+set pp_II 45
+get pp_II
+del pp_II
+get pp_II
+nil
+hmset book:1 name "CBD" type "Redis"
+Keys
+keys
+keys *
+hgtall book:1
+hgetall book:1
+exit
+set key hello
+expire key 5
+TTl ley
+TTl key
+TTL key
+PEXPIRE key 300000
+TTL key
+getrange key
+getrange key 0 3
+set key hello
+get key
+get range key 0 3
+getrange key 0 3
+append key " world"
+get key
+HMSET colors c1 "blue" c2 "red" c3 "yellow" c4 "green"
+colors c1
+get colors c1
+hget colors c1
+hget colors c3
+hdel colors c3
+hget colors c3
+hrange colors c3
+hexits colors c3
+hexists colors c3
+hexists colors c1
+hset colors c3 "purple"
+hget colors
+hget colors c3
+LPUSH colors pink black
+LPUSH colors2 pink black blue red
+LRANGE colors 0 2
+LRANGE colors 0 -1
+LRANGE colors2 0 -1
+LRANGE colors2 0 2
+LLEN colors2
+LPOP colors2 2
+LRANGE 0 -1

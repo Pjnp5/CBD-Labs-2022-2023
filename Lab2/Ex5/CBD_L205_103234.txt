@@ -1,0 +1,52 @@
+Alinea C
+
+1 - Todos os países da Sub-região "Caraíbas" com area menor que 100 metros quadrados
+
+db.countries.find({subregion: "Caribbean", area: {$lt: 100}}, {"name.common": 1, subregion: 1, capital:1,area: 1, _id: 0})
+
+2 - Os 15 países menores que têm como moeda "EUR" ou "USD" por ordem crescente
+
+db.countries.find({ currency: {$in : ["EUR", "USD"]}},{"name.common": 1, capital:1, area: 1, currency: 1, region:1 , subregion: 1}).limit(15).sort({area: 1})
+
+3 - Todos os paises com "latlng.0" maior que 40 e "latlng.1" menor que 40 pertencentes à região "Americas"
+
+db.countries.find({$and: [{'latlng.0': {$gt : 40}}, {'latlng.1': {$lt : 40}}, {"region": {$eq : "Americas"}}]},{"name.common": 1, capital:1, area: 1, currency: 1, region:1 , subregion: 1,latlng:1, _id: 0})
+
+4 - Todos os paises onde a capital começa por "T" ordenados pelo nome em ordem ascendente
+
+db.countries.find({capital: /^T/},{"name.common": 1 , capital:1, area: 1, _id: 0}).sort({area: 1})
+
+5 - Todso os países que ou têm area superior a 2 milhões de metros quadrados ou a sua capital começa pela letra "H" ordenados em ordem descendente
+
+db.countries.find({$or: [{capital: /^H/}, {area: {$gt: 2000000}}]},{"name.common": 1 , capital:1, area: 1, _id: 0}).sort({area: -1})
+
+6 - Todos os paises que no seu nome (name.common) tenho o conjunto de letras "art" nesta sequencia.
+
+db.countries.find({"name.common": {$regex: "art"}},{"name.common": 1 , capital:1, area: 1, _id: 0})
+
+
+ALÍNEA D
+
+1 - Quantos paises usam uma certa moeda ou conjunto de moedas (existe mais que uma moeda em circulação).
+
+db.countries.aggregate([ {$group: {_id:'$currency', count: {$sum : 1} }}])
+
+2 - Top 10 paises que fazem fronteira com mais paises
+
+db.countries.aggregate([{$project: { "name.common": 1, _id: 0, count: { $size:"$borders" }}}, {$sort : {'count': -1} },  { $limit : 10 }])
+
+3 - Nome de todos os paises que pertecem à região "Americas".
+
+db.countries.aggregate( [{$match: {region: "Americas" }}, {$project: { "name.common": 1, _id: 0}}])
+
+4 - Top 10 paises com maior area da Região "Americas"
+
+db.countries.aggregate([ {$match : {"region": {$eq : "Americas"} }}, {$project: {"name.common": 1, "_id": 0, "area": 1} }, {$sort : {"area": 1} }, {$limit: 10} ])
+
+5 - Quantos paises falam cada linguagem, da mais para a menos, e quantos paises, em média, fazem "border" com os paises que falam essa linguagem
+
+db.countries.aggregate([ {$group: {_id:'$languages', count: {$sum : 1} , avg_borders: {$avg: { $size:"$borders" }}}}, {$sort : {'count': -1} }])
+
+6 - Quantas borders tem o pais (com mais) que fala cada linguagem, ordenado por ordem decrescente.
+
+db.countries.aggregate([ {$group: {_id:'$languages', min_lang: {$min : 1} , max_borders: {$max: { $size:"$borders" }}}}, {$sort : {'max_borders': -1} }, {$limit: 5}])

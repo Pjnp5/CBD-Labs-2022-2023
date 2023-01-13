@@ -1,0 +1,14 @@
+PING
+HMSET names n1 "Paulo" n2 "Tiago" n3 "Raquel"
+HGET names n1
+HDEL names n1
+HGET names n1
+HEXISTS names n2
+HEXISTS names n4
+HGET names n3
+HSET names n3 "Luis"
+HGET names n3
+set number 2
+get number
+del number
+get number

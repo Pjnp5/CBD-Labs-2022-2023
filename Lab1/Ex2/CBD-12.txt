@@ -1,0 +1,2 @@
+sudo cat initials4redis.txt | redis-cli --pipe
+(dentro da pasta onde CBD-12-batch.txt está)

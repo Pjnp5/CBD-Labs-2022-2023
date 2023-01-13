@@ -1,0 +1,70 @@
+Welcome!
+1 - Create User
+2 - Send Message
+3 - Add User to friends
+4 - Check user Messages
+1
+Which name will you choose?
+Paulo
+{user1=Paulo, user2=Cona2, user3=Maria, user4=Luis}
+Welcome!
+1 - Create User
+2 - Send Message
+3 - Add User to friends
+4 - Check user Messages
+1
+Which name will you choose?
+Ana
+{user1=Paulo, user2=Ana, user3=Maria, user4=Luis}
+Welcome!
+1 - Create User
+2 - Send Message
+3 - Add User to friends
+4 - Check user Messages
+3
+{user1=Paulo, user2=Ana, user3=Maria, user4=Luis}
+Your username:
+Paulo
+{user1=Paulo, user2=Ana, user3=Maria, user4=Luis}
+User to subscribe?
+Ana
+Welcome!
+1 - Create User
+2 - Send Message
+3 - Add User to friends
+4 - Check user Messages
+3
+{user1=Paulo, user2=Ana, user3=Maria, user4=Luis}
+Your username:
+Ana
+{user1=Paulo, user2=Ana, user3=Maria, user4=Luis}
+User to subscribe?
+Paulo
+Welcome!
+1 - Create User
+2 - Send Message
+3 - Add User to friends
+4 - Check user Messages
+2
+{user1=Paulo, user2=Ana, user3=Maria, user4=Luis}
+Your user name:
+Paulo
+Message:
+Olá
+[Olá]
+Welcome!
+1 - Create User
+2 - Send Message
+3 - Add User to friends
+4 - Check user Messages
+4
+Your username:
+Ana
+Message from Paulo:
+Olá
+Welcome!
+1 - Create User
+2 - Send Message
+3 - Add User to friends
+4 - Check user Messages
+6

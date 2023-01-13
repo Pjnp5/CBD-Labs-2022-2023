@@ -1,0 +1,112 @@
+cqlsh> create KEYSPACE cbd
+   ... with replication = {'class': 'SimpleStrategy', 'replication_factor': 3};
+
+Warnings :
+Your replication factor 3 for keyspace cbd is higher than the number of nodes 1
+
+cqlsh> use cbd
+   ...
+   ... ;
+cqlsh:cbd> create COLUMNFAMILY inuteis(
+       ... id int PRIMARY KEY,
+       ... name text,
+       ... age int
+       ... ,
+       ... work_type text
+       ... );
+
+cqlsh:cbd> SELECT * FROM inuteis
+       ... ;
+
+ id | age | name | work_type
+----+-----+------+-----------
+
+(0 rows)
+
+cqlsh:cbd> ALTER TABLE inuteis  ADD patience text;
+cqlsh:cbd> SELECT * FROM inuteis  ;
+
+ id | age | name | patience | work_type
+----+-----+------+----------+-----------
+
+(0 rows)
+
+cqlsh:cbd> ALTER TABLE inuteis DROP patience;
+cqlsh:cbd> SELECT * FROM inuteis  ;
+
+ id | age | name | work_type
+----+-----+------+-----------
+
+(0 rows)
+
+cqlsh:cbd> insert into inuteis (id , age , name , work_type ) VALUES ( 1, 20, 'Soralexina', 'Não diz que os outros estiam e estia');
+cqlsh:cbd> insert into inuteis (id , age , name , work_type ) VALUES ( 2, 20, 'PP_II', 'Diz que os outros estiam e estia');
+cqlsh:cbd> insert into inuteis (id , age , name , work_type ) VALUES ( 3, 21, 'Pareidreds', 'Diz que os outros estiam e não estia');
+cqlsh:cbd> insert into inuteis (id , age , name , work_type ) VALUES ( 4, 20, 'Mankings', 'Não diz que os outros estiam e não estia');
+cqlsh:cbd> SELECT * FROM inuteis;
+
+ id | age | name       | work_type
+----+-----+------------+------------------------------------------
+  1 |  20 | Soralexina |     Não diz que os outros estiam e estia
+  2 |  20 |      PP_II |         Diz que os outros estiam e estia
+  4 |  20 |   Mankings | Não diz que os outros estiam e não estia
+  3 |  21 | Pareidreds |     Diz que os outros estiam e não estia
+
+(4 rows)
+
+cqlsh:cbd> UPDATE inuteis SET age = 22 WHERE id = 3;
+cqlsh:cbd> SELECT * FROM inuteis;
+
+ id | age | name       | work_type
+----+-----+------------+------------------------------------------
+  1 |  20 | Soralexina |     Não diz que os outros estiam e estia
+  2 |  20 |      PP_II |         Diz que os outros estiam e estia
+  4 |  20 |   Mankings | Não diz que os outros estiam e não estia
+  3 |  22 | Pareidreds |     Diz que os outros estiam e não estia
+
+(4 rows)
+
+cqlsh:cbd> select name, work_type from inuteis
+       ... ;
+
+ name       | work_type
+------------+------------------------------------------
+ Soralexina |     Não diz que os outros estiam e estia
+      PP_II |         Diz que os outros estiam e estia
+   Mankings | Não diz que os outros estiam e não estia
+ Pareidreds |     Diz que os outros estiam e não estia
+
+(4 rows)
+cqlsh:cbd> insert into inuteis (id , age , name , work_type ) VALUES ( 5, 13, 'cbd', 'Estia');
+cqlsh:cbd> select name, work_type from inuteis  ;
+
+ name       | work_type
+------------+------------------------------------------
+        cbd |                                    Estia
+ Soralexina |     Não diz que os outros estiam e estia
+      PP_II |         Diz que os outros estiam e estia
+   Mankings | Não diz que os outros estiam e não estia
+ Pareidreds |     Diz que os outros estiam e não estia
+
+(5 rows)
+
+cqlsh:cbd> delete from inuteis WHERE id = 5
+       ... ;
+
+cqlsh:cbd> select name, work_type from inuteis  ;
+
+ name       | work_type
+------------+------------------------------------------
+ Soralexina |     Não diz que os outros estiam e estia
+      PP_II |         Diz que os outros estiam e estia
+   Mankings | Não diz que os outros estiam e não estia
+ Pareidreds |     Diz que os outros estiam e não estia
+
+(4 rows)
+cqlsh:cbd> select name from inuteis where age > 20 allow filtering;
+
+ name
+------------
+ Pareidreds
+
+(1 rows)

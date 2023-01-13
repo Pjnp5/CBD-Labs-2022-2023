@@ -1,0 +1,110 @@
+// NMEC: 12345
+
+#1
+match (actor:Person)-[r:ACTED_IN]->(movie:Movie),(actor)-[:DIRECTED]->(movie) 
+return actor.name,movie.title
+#2
+match (actor:Person)-[relation:ACTED_IN]->(movie:Movie) 
+where movie.released > 2005 
+return actor.name
+#3
+match (node1)-[]-(node2)
+with node1 as node1, count([]) as relations, node2 as node2 
+where relations > 1 
+return node1, relations, node2
+#4
+match (person1:Person) - [:REVIEWED]->(movie)<-[:REVIEWED] - (person2:Person) 
+where ID(person1) < ID(person2) 
+return person1.name, movie.title, person2.name
+#5
+match (person1:Person) - [:REVIEWED]->(movie)<-[:REVIEWED] - (person2:Person) 
+where ID(person1) < ID(person2) 
+return person1.name, movie.title, person2.name
+#6
+match(actor1:Person)-[:ACTED_IN]->(movie:Movie{title:'Apollo 13'})
+return avg(movie.released-actor1.born)
+#7
+match(actor1:Person)-[:ACTED_IN]->(movie:Movie) WITH actor1,movie, movie.released-actor1.born as age
+return movie.title,round(avg(age), 2) as avg_age
+order by avg_age desc   
+limit 10 
+#8
+match (actor1:Person)-[:ACTED_IN]->(movie:Movie)             
+with movie as m,  round(avg(movie.released-actor1.born),2) as avg_age 
+order by  avg_age asc limit 1
+match (actor: Person)-[:ACTED_IN]->(m)
+return collect(actor), m
+#9
+match 
+(actor1:Person {name: 'John Cusack'}),
+(actor2:Person {name: 'Demi Moore'}),
+p = shortestPath((actor1)-[*]-(actor2))
+RETURN actor1.name, p, actor2.name
+#10
+match 
+(actor1:Person {name: 'Keanu Reeves'}),
+(actor2:Person {name: 'Tom Cruise'}),
+p = shortestPath((actor1)-[*]-(actor2))
+RETURN actor1.name, length(p), actor2.name
+#11
+match (person1: Person), (person2:Person)
+where person1.name starts with "Jim" and person2.name starts with "Kevin"
+match p=shortestPath((person1)-[*]-(person2))
+return person1.name, person2.name, length(p)
+#12
+match (person1: Person {name:"Jim Cash"} ),  (person2:Person)
+where person1<>person2
+match p=shortestPath((person1)-[*]-(person2))
+with person1,person2,length(p) as distance
+where distance =2
+RETURN  person2.name
+#13
+match (person1: Person {name:"Kevin Bacon"} ),  (person2:Person)
+where person1<>person2
+match p=shortestPath((person1)-[*]-(person2))
+RETURN  length(p) 
+order by length(p) desc limit 1
+#14
+match (node1:Person),
+(node2:Person), path = shortestPath((node1)-[*]-(node2))
+where node1 <> node2
+return length(path)
+order by length(path) desc
+limit 1
+#15
+match (node1:Person),
+(node2:Person), path = shortestPath((node1)-[*]-(node2))
+where node1 <> node2
+with path,length(path) as size_path
+return size_path, count(size_path)
+order by size_path
+#16
+Match (person1: Person  ),  (person2:Person)
+where (person1)<>(person2)
+match p=shortestPath((person1)-[:ACTED_IN*]-(person2))
+with  length(p) as distance , person1.name as name
+return name, round(avg(distance),2) as avg
+order by avg asc limit 10
+#17
+match (p:Person)-[r:ACTED_IN]->(:Movie)
+where any(character in r.roles where character starts with "Dr.")
+return p, r.roles
+#18 - Liste todos os atores e diretores que participaram no mesmo filme, sendo que nasceram antes ano de 1980 orderado pelo nome do filem.
+match (actor:Person)-[:ACTED_IN]->(movie:Movie)<-[:DIRECTED]-(director:Person)
+with actor, movie, directores
+where actor.born < 1980 and writer.born < 1980
+return distinct actor.name as nome_actor, actor.born as ano_nascimento_atoor,writer.name as nome_escritor, writer.born as ano_nacimento_escritor, movie.title as filme
+#19 - Liste o top 5 de actores com mais filmes que comecem com a letra R ou L
+match(director:Person)-[r:DIRECTED]->(movie:Movie)
+with director.name as director_name, count(director.name) as movies_directed
+where director_name starts with "R" or director_name starts with "L"
+return director_name, movies_directed
+order by movies_directed desc
+limit 5
+#20 - Indicar os 10 atores mais velhos que participaram em filmes que estrearam entre 1970 e 1990.
+match (p:Person)-[:ACTED_IN]->(m:Movie)
+where 1990 > m.released > 1970
+with m, p, (m.released-p.born) as age
+order by age desc
+limit 10
+return p.name as Name, age as Age, m.title as Title, m.released as Released

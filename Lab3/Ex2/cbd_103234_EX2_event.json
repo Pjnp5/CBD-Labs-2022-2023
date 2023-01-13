@@ -1,0 +1,11 @@
+{"video_id": 1, "author": "user2", "moment": 0, "event_timestamp": "2022-11-26 19:49:44.856Z", "type": "PLAY"}
+{"video_id": 1, "author": "user2", "moment": 100, "event_timestamp": "2022-11-26 19:49:44.860Z", "type": "PAUSE"}
+{"video_id": 1, "author": "user2", "moment": 100, "event_timestamp": "2022-11-26 19:49:44.862Z", "type": "PLAY"}
+{"video_id": 1, "author": "user2", "moment": 200, "event_timestamp": "2022-11-26 19:49:44.864Z", "type": "STOP"}
+{"video_id": 1, "author": "user6", "moment": 0, "event_timestamp": "2022-11-26 19:49:44.867Z", "type": "PLAY"}
+{"video_id": 1, "author": "user6", "moment": 23, "event_timestamp": "2022-11-26 19:49:44.870Z", "type": "PAUSE"}
+{"video_id": 1, "author": "user6", "moment": 23, "event_timestamp": "2022-11-26 19:49:44.873Z", "type": "PLAY"}
+{"video_id": 1, "author": "user6", "moment": 456, "event_timestamp": "2022-11-26 19:49:44.876Z", "type": "PAUSE"}
+{"video_id": 1, "author": "user8", "moment": 0, "event_timestamp": "2022-11-26 19:49:44.878Z", "type": "PLAY"}
+{"video_id": 1, "author": "user9", "moment": 0, "event_timestamp": "2022-11-26 19:49:44.900Z", "type": "PLAY"}
+{"video_id": 1, "author": "user9", "moment": 0, "event_timestamp": "2022-11-26 19:49:44.902Z", "type": "STOP"}

@@ -1,0 +1,52 @@
+//103234
+Vou utilizar uma driver de neo4j para python, visto que é a linguagem que prefiro utilizar
+Link para o dataSet que vou usar: https://data.world/datadavis/nba-salaries/workspace/file?filename=players.csv, vou utilizar apenas o players.csv
+Instalar driver de python: pip install neo4j-driver
+
+
+About the dataSet:
+
+(I did not import everything on the data set and honestly i dont know if I used everything I imported)
+
+Node types:
+
+    Player: This node represents a player in the NBA. It has the following properties:
+        name: the name of the player
+        height: the height of the player in inches
+        career_WS: the career win shares of the player
+        career_TRB: the career rebounds per game of the player
+        career_PTS: the career points per game of the player
+        career_PER: the career player efficiency rating of the player
+        career_G: the career games played by the player
+        career_FT: the career free throws made by the player
+        career_FG: the career field goals made by the player
+        career_AST: the career assists per game of the player
+        draft_team: the team that drafted the player
+        draft_round: the round in which the player was drafted
+        draft_pick: the pick in which the player was drafted
+        draft_year: the year in which the player was drafted
+        _id: the unique identifier of the player
+
+    Hand: This node represents a hand that a player can shoot with. It has the following property:
+        shoots: the hand that the player shoots with (either "Left" or "Right")
+
+    Position: This node represents a position that a player can play. It has the following property:
+        position: the position that the player plays (e.g. "Point guard", "Center")
+
+    College: This node represents a college that a player attended. It has the following property:
+        college: the name of the college that the player attended
+
+    Draft_Team: This node represents a team that drafts a player. It has the following property:
+        name: the name of the team
+
+
+
+Relations:
+
+    DRAFTED_BY: Represents the relationship between a Player and a Draft_Team. This relation indicates that the player was drafted by the team.
+    
+    UNIVERSITY: Represents the relationship between a Player and a College. This relation indicates that the player attended the college.
+    
+    SHOOTS_WITH: Represents the relationship between a Player and a Hand. This relation indicates the hand the player shoots with.
+    
+    PLAYS_AS: Represents the relationship between a Player and a Position. This relation indicates the position the player plays.
